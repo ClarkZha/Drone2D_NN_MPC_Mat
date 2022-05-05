@@ -6,9 +6,10 @@ optState = sdpvar(6,horizon); %
 optCommand = sdpvar(2,horizon-1);
 
 
-optStateGuess = repmat(initState,1,horizon);
+% optStateGuess = repmat(initState,1,horizon);
 optCommandGuess = repmat([grav;0],1,horizon-1);
-assign(optState,optStateGuess); assign(optCommand,optCommandGuess);
+% assign(optState,optStateGuess); 
+assign(optCommand,optCommandGuess);
 
 
 

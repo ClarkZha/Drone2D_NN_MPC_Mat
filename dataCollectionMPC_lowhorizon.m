@@ -21,7 +21,7 @@ batchNum = 20;
 batchSize = 500;
 
 dt = 0.02;
-horizon = 10;
+horizon = 6;
 
 posMin = -2; posMax = 2;
 distMin = -2; distMax = 2;
@@ -51,8 +51,8 @@ for j = 1:batchNum
        [command, ~] = droneMPC(dt, horizon, initState, goalState, Q, R, F, maxAcc, maxAngAcc);
        commandGenerated(i,:) = reshape(command,[1,2*(horizon-1)]);
     end
-    save(['data/MPC_state',num2str(j+4),'.mat'],'stateRecord')
-    save(['data/MPC_command',num2str(j+4),'.mat'],'commandGenerated')
+    save(['data2/MPC_state',num2str(j),'.mat'],'stateRecord')
+    save(['data2/MPC_command',num2str(j),'.mat'],'commandGenerated')
 end
 
 warning('on','all')
