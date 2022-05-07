@@ -4,7 +4,8 @@ function prepedData  = prepareData(dataSet)
     stateSize = dataSet.stateSize; %Size of input state
     actionSize = dataSet.actionSize;
     actionHorizon = dataSet.actionHorizon;
-    data =  [dataSet.X, dataSet.y];
+
+    data =  [dataSet.X, dataSet.y, dataSet.time];
     validatePercent = dataSet.validatePercent;
     testPercent = dataSet.testPercent;
     
@@ -20,6 +21,8 @@ function prepedData  = prepareData(dataSet)
 
     prepedData.TrainInput = randomData(1:N-validateN-testN,1:stateSize);
     prepedData.TrainOutput = randomData(1:N-validateN-testN,stateSize+1:stateSize + actionSize * actionHorizon);
+    prepedData.Time = randomData(1:N-validateN-testN,end);
+
 
     validateInput = randomData(N-validateN-testN+1:N-testN,1:stateSize);
     validateOutput = randomData(N-validateN-testN+1:N-testN,stateSize+1:stateSize+actionSize*actionHorizon);
@@ -27,4 +30,5 @@ function prepedData  = prepareData(dataSet)
     
     prepedData.testInput = randomData(N-testN+1:N, 1:stateSize);
     prepedData.testOutput = randomData(N-testN+1:N, stateSize+1:stateSize+actionSize*actionHorizon);
+    prepedData.time = randomData(N-testN+1:N, end);
 end

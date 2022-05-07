@@ -10,21 +10,21 @@ initPitchRate = 0;
 
 initState = [initPos;initVel;initPitch;initPitchRate];
 
-goalPos = [0;2];
-goalVel = [1;1];
+goalPos = [1;2];
+goalVel = [0.5;0.5];
 goalState = [goalPos;goalVel];
 
 % Define the cost matrix
-costParam.Q = diag([0.1,0.1]);
-costParam.R = diag([100,100,10,10]);
-costParam.F = diag([5000,5000,200,200]);
+costParam.Q = diag([2,2]);
+costParam.R = diag([100,100,5,5]);
+costParam.F = diag([200,200,10,10]);
 
 
 quadParam.mass = 0.2; %[kg]
 quadParam.Iyy = 1e-4; %[kg*m^2] Moment of inertia
 quadParam.grav = 9.81; %[m/s^2]
 quadParam.armLength = 0.1; %[m]
-quadParam.maxThrust = 4; %[N]
+quadParam.maxThrust = 3; %[N]
 
-horizon = 5;
+horizon = 8;
 [command, state] = droneMPC(dt, horizon, initState, goalState, costParam, quadParam)
