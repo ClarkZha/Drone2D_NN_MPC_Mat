@@ -1,9 +1,8 @@
 % Combine the generated data pack. 
 dataSetNumber = 2;
-
 X = [];
 y = [];
-packNum = 16;
+packNum = 20;
 
 
 if dataSetNumber == 1
@@ -32,3 +31,16 @@ if dataSetNumber == 2
     save('MPCdata2.mat','X','y','time','costParam','quadParam','horizon','dt');
 end
 
+if dataSetNumber == 3
+    time = [];
+    load('data3/ProblemSetup.mat')
+    for i = 1:packNum
+       load(['data3/MPC_state',num2str(i+10),'.mat'])
+       load(['data3/MPC_command',num2str(i+10),'.mat'])
+       load(['data3/MPC_time',num2str(i+10),'.mat'])
+       X=[X;stateRecord];
+       y=[y;commandGenerated];
+       time = [time;timeRecord];
+    end
+    save('MPCdata3.mat','X','y','time','costParam','quadParam','horizon','dt');
+end

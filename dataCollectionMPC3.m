@@ -26,17 +26,18 @@ quadParam.maxThrust = 3; %[N]
 batchNum = 20;
 batchSize = 500;
 
-posMin = -2; posMax = 2;
-distMinX = -1.5; distMaxX = 1.5;
-distMinZ = -1.5; distMaxZ = 1.5;
-velMin = -3; velMax = 3;
-pitchMin = -pi/6; pitchMax = pi/6;
-pitchRateMin = -pi; pitchRateMax = pi;
+
+posMin = -1; posMax = 2;
+distMinX = 0; distMaxX = 0.5;
+distMinZ = 0; distMaxZ = 0.5;
+velMin = -1; velMax = 3;
+pitchMin = -pi/4; pitchMax = pi/4;
+pitchRateMin = -pi/3; pitchRateMax = pi;
 % warning('off','all')
 
 
 
-save('data2/ProblemSetup.mat','costParam','quadParam','horizon','dt')
+save('data4/ProblemSetup.mat','costParam','quadParam','horizon','dt')
 for j = 1:batchNum
     stateRecord = zeros(batchSize,8); %6 element for initial state + 4 element for goal state
     commandGenerated = zeros(batchSize,(horizon-1)*2); %recording the solution of mpc
@@ -62,9 +63,8 @@ for j = 1:batchNum
        commandGenerated(i,:) = reshape(command,[1,2*(horizon-1)]);
        timeRecord(i,:) = duration;
     end
-    save(['data3/MPC_state',num2str(10+j),'.mat'],'stateRecord')
-    save(['data3/MPC_command',num2str(10+j),'.mat'],'commandGenerated')
-    save(['data3/MPC_time',num2str(10+j),'.mat'],'timeRecord')
+    save(['data4/MPC_state',num2str(10+j),'.mat'],'stateRecord')
+    save(['data4/MPC_command',num2str(10+j),'.mat'],'commandGenerated')
+    save(['data4/MPC_time',num2str(10+j),'.mat'],'timeRecord')
 end
 warning('on','all')
-

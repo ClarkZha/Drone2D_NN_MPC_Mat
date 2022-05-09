@@ -2,10 +2,13 @@ dataSetNumber = 2;
 
 if dataSetNumber == 1
     load('TrainingResult1.mat')
+    actionHorizon = 4; %Output horizon of the NN controller
 elseif dataSetNumber == 2
     load('TrainingResult2.mat')
+    actionHorizon = 2; %Output horizon of the NN controller
 elseif dataSetNumber == 3
     load('TrainingResult3.mat')
+    actionHorizon = 4; %Output horizon of the NN controller
 end 
 
 simFlag = true;
@@ -16,8 +19,14 @@ initPitch = 0;
 initPitchRate = 0;
 initState = [initPos;initVel;initPitch;initPitchRate];
 
+%goalPos = [0.2;1.0];
+
+% goalPos = [0.1;1.0];
+% goalVel = [0.1;1.0];
+
 goalPos = [0.2;1.0];
-goalVel = [0;0];
+goalVel = [0.0;0.0];
+
 goalState = [goalPos;goalVel];
 
 % Define the cost matrix
@@ -32,8 +41,8 @@ quadParam.armLength = 0.1; %[m]
 quadParam.maxThrust = 3; %[N]
 
 stateSize = 8; %Size of input state
-actionSize = 2;
-actionHorizon = 2; %Output horizon of the NN controller
+actionSize = 2; %Use 2 for other ones
+
 
 horizon = 8;
 
@@ -112,8 +121,8 @@ plot(tRecord, stateRecord_MPC(1,:),'Color','#0072BD','LineWidth',2);
 hold on
 plot(tRecord, stateRecord_NN(1,:),'-o');
 plot(tRecord, stateRecord_NN_MPC(1,:),'-s');
-xlabel('t[s]')
-ylabel('pos-x [m]')
+h = xlabel('t [s]','FontSize',10);
+d = ylabel('pos-x [m]','FontSize',10);
 AX=legend('MPC', 'NN', 'NN-MPC', 'location','northwest');
 
 subplot(3,2,2)
@@ -121,8 +130,8 @@ plot(tRecord, stateRecord_MPC(2,:),'Color','#0072BD','LineWidth',2);
 hold on
 plot(tRecord, stateRecord_NN(2,:),'-o');
 plot(tRecord, stateRecord_NN_MPC(2,:),'-s');
-xlabel('t[s]')
-ylabel('pos-z [m]')
+xlabel('t [s]','FontSize',10);
+ylabel('pos-z [m]','FontSize',10);
 
 
 subplot(3,2,3)
@@ -130,35 +139,33 @@ plot(tRecord, stateRecord_MPC(3,:),'Color','#0072BD','LineWidth',2);
 hold on
 plot(tRecord, stateRecord_NN(3,:),'-o');
 plot(tRecord, stateRecord_NN_MPC(3,:),'-s');
-xlabel('t[s]')
-ylabel('vel-x [m/s]')
+h = xlabel('t [s]','FontSize',10);
+d =ylabel('vel-x [m/s]','FontSize',10);
 
 subplot(3,2,4)
 plot(tRecord, stateRecord_MPC(4,:),'Color','#0072BD','LineWidth',2);
 hold on
 plot(tRecord, stateRecord_NN(4,:),'-o');
 plot(tRecord, stateRecord_NN_MPC(4,:),'-s');
-xlabel('t [s]')
-ylabel('vel-z [m/s]')
+h = xlabel('t [s]','FontSize',10);
+d = ylabel('vel-z [m/s]','FontSize',10);
 
 
 subplot(3,2,5)
 plot(tRecord, stateRecord_MPC(5,:),'Color','#0072BD','LineWidth',2);
 hold on
-plot(tRecord, stateRecord_NN(5,:),'-o');
-plot(tRecord, stateRecord_NN_MPC(5,:),'-s');
-xlabel('t[s]')
-ylabel('pitch [rad]')
+h = plot(tRecord, stateRecord_NN(5,:),'-o');
+d = plot(tRecord, stateRecord_NN_MPC(5,:),'-s');
+xlabel('t [s]','FontSize',10);
+ylabel('pitch [rad]','FontSize',10);
 
 subplot(3,2,6)
 plot(tRecord, stateRecord_MPC(6,:),'Color','#0072BD','LineWidth',2);
 hold on
-plot(tRecord, stateRecord_NN(6,:),'-o');
-plot(tRecord, stateRecord_NN_MPC(6,:),'-s');
-xlabel('t[s]')
-ylabel('pitch-rate [rad/s]')
+h = plot(tRecord, stateRecord_NN(6,:),'-o');
+d = plot(tRecord, stateRecord_NN_MPC(6,:),'-s');
+xlabel('t [s]','FontSize',10);
+ylabel('pitch-rate [rad/s]','FontSize',10);
 
 
-
-
-
+save('simResult.mat','stateRecord_MPC','stateRecord_NN','stateRecord_NN_MPC')
