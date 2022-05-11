@@ -35,9 +35,9 @@ if dataSetNumber == 3
     time = [];
     load('data3/ProblemSetup.mat')
     for i = 1:packNum
-       load(['data3/MPC_state',num2str(i+10),'.mat'])
-       load(['data3/MPC_command',num2str(i+10),'.mat'])
-       load(['data3/MPC_time',num2str(i+10),'.mat'])
+       load(['data3/MPC_state',num2str(i),'.mat'])
+       load(['data3/MPC_command',num2str(i),'.mat'])
+       load(['data3/MPC_time',num2str(i),'.mat'])
        X=[X;stateRecord];
        y=[y;commandGenerated];
        time = [time;timeRecord];

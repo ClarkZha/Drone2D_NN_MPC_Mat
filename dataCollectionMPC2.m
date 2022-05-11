@@ -63,8 +63,8 @@ for j = 1:batchNum
        commandGenerated(i,:) = reshape(command,[1,2*(horizon-1)]);
        timeRecord(i,:) = duration;
     end
-    save(['data2/MPC_state',num2str(10+j),'.mat'],'stateRecord')
-    save(['data2/MPC_command',num2str(10+j),'.mat'],'commandGenerated')
-    save(['data2/MPC_time',num2str(10+j),'.mat'],'timeRecord')
+    save(['data2/MPC_state',num2str(j),'.mat'],'stateRecord')
+    save(['data2/MPC_command',num2str(j),'.mat'],'commandGenerated')
+    save(['data2/MPC_time',num2str(j),'.mat'],'timeRecord')
 end
 warning('on','all')
